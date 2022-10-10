@@ -21,9 +21,10 @@ def get_data_html(url):
 
 
 # Формируем список из словарей всех книг категории
-def get_books(soup, url):
+def get_books(url):
     books = []
-    page_count = int(soup.find('div', class_='pagination-number__right').find('a').text)
+    html_for_number_page = get_data_html(url)
+    page_count = int(html_for_number_page.find('div', class_='pagination-number__right').find('a').text)
     count_books = 0
     # for page in range(1, page_count + 1):
     for page in range(1, 3):
@@ -93,8 +94,7 @@ def get_file_name(category):
 
 
 def main(url):
-    html = get_data_html(url)
-    books_data = get_books(html, url)
+    books_data = get_books(url)
     # save_excel(books_data)
     save_json(books_data)
 
